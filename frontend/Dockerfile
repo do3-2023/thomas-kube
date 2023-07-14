@@ -7,6 +7,8 @@ RUN npm install
 RUN npm run build
 
 FROM node:latest AS runner
+LABEL org.opencontainers.image.source="https://github.com/do3-2023/thomas-kube"
+
 WORKDIR /app
 
 ENV NODE_ENV production
