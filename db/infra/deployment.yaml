@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: database
+  namespace: db
 spec:
   selector:
     matchLabels:
@@ -24,8 +25,12 @@ spec:
         - mountPath: "/var/lib/postgresql/data"
           name: db-pvc
           readOnly: false
+        envFrom:
+        - secretRef:
+            name: db-secret
       volumes:
       - name: db-pvc
         persistentVolumeClaim:
           claimName: db-pvc
+
 

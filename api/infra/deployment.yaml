@@ -28,6 +28,6 @@ spec:
         - name: CITY_API_PORT
           value: "2022"
         - name: CITY_API_DB_URL
-          value: "postgres://postgres:postgres@localhost:5432/city_api?sslmode=disable"
+          value: "postgres://postgres:fischer1956@database.db.svc.cluster.local/city_api?sslmode=disable"
         - name: CITY_API_DB_USER
           value: "postgres"
