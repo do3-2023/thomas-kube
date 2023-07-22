@@ -5,8 +5,25 @@ import (
 	"log"
 )
 
-func populateDb(db *sql.DB){
-	sqlStatement := `INSERT INTO city (department_code, insee_code, zip_code, name, lat, lon)
+func PopulateDb(db *sql.DB){
+
+	// create the city table
+	createTable := `CREATE TABLE IF NOT EXISTS city (
+		id SERIAL PRIMARY KEY,
+		department_code VARCHAR(6) UNIQUE NOT NULL,
+		insee_code VARCHAR(5) NOT NULL,
+		zip_code VARCHAR(5) NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		lat FLOAT NOT NULL, 
+		lon FLOAT NOT NULL
+	);`
+
+	_, err := db.Exec(createTable)
+	if err != nil {
+		log.Println("Error creating table:", err)
+	}
+
+	sqlStatementInsert := `INSERT INTO city (department_code, insee_code, zip_code, name, lat, lon)
 	VALUES
 	('01', '01001', '01000', 'Bourg-en-Bresse', 46.2051, 5.2250),
 	  ('02', '02001', '02000', 'Laon', 49.5610, 3.6100),
@@ -110,9 +127,12 @@ func populateDb(db *sql.DB){
 	  ('976', '97601', '97600', 'Mamoudzou', -12.7808, 45.2279);
 	
 	`
-	_, errQuery := db.Exec(sqlStatement)
+	_, errQuery := db.Exec(sqlStatementInsert)
 	if errQuery != nil {
 		log.Println("Error executing SQL query:", errQuery)
 		return
 	}
+
+	println("Table setup done")
+
 }

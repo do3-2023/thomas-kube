@@ -13,6 +13,7 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/thomas-mauran/city_api/dbHelper"
 	city "github.com/thomas-mauran/city_api/struct"
 	"github.com/thomas-mauran/city_api/utils"
 )
@@ -59,7 +60,11 @@ func main() {
 	// Prometheus metrics
 	prometheus.MustRegister(requestCount)
 
-	println("Starting the server on", cityAPIAddr+":"+cityAPIPort)
+	println("Starting the server on :", cityAPIAddr+":"+cityAPIPort)
+
+	// Populate the db
+	dbHelper.PopulateDb(db)
+	println("test")
 
 	r.Route("/metrics", func(r chi.Router) {
 		r.Use(incrementRequestCount)
@@ -72,7 +77,7 @@ func main() {
 		if err != nil {
 			log.Println("Unable to ping the database:", err)
 			response := fmt.Sprintf("Unable to ping the database: %v", err)
-			utils.Response(w, r, 204, response)
+			utils.Response(w, r, 500, response)
 			return
 		}
 		log.Println("Everything is good!")
