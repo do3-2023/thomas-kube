@@ -23,7 +23,6 @@ COPY . .
 
 RUN go mod download && go mod verify
 
-EXPOSE 3000
 
 CMD ["go", "run", "main.go"]
 
@@ -39,7 +38,5 @@ USER myuser
 WORKDIR /
 
 COPY --from=builder /app/city .
-
-EXPOSE 3000
 
 CMD [ "/city" ]  

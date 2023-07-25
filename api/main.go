@@ -72,7 +72,7 @@ func main() {
 	})
 
 	// Health check
-	r.Get("/_health", func(w http.ResponseWriter, r *http.Request) {
+	r.Get("/healthz", func(w http.ResponseWriter, r *http.Request) {
 		err := db.Ping()
 		if err != nil {
 			log.Println("Unable to ping the database:", err)
@@ -81,7 +81,7 @@ func main() {
 			return
 		}
 		log.Println("Everything is good!")
-		utils.Response(w, r, 204, "Everything is good!")
+		utils.Response(w, r, 200, "Everything is good!")
 	})
 
 	// City GET
@@ -127,6 +127,33 @@ func main() {
 		}
 	})
 
+	//Random city
+	r.Get("/city/random", func(w http.ResponseWriter, r *http.Request) {
+		sqlStatement := `SELECT * FROM city ORDER BY RANDOM() LIMIT 1`
+		row := db.QueryRow(sqlStatement)
+
+		var city city.City
+		if err := row.Scan(&city.ID, &city.DepartmentCode, &city.InseeCode, &city.ZipCode, &city.Name, &city.Lat, &city.Lon); err != nil {
+			log.Println("Error scanning row:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
+
+		jsonData, err := json.Marshal(city)
+		if err != nil {
+			log.Println("Error marshaling JSON:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
+
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write(jsonData); err != nil {
+			log.Println("Error writing response:", err)
+			// Handle the error. You can choose to log the error, send an appropriate response, or take any other action.
+		}
+	})
+
 	// City POST
 	r.Post("/city", func(w http.ResponseWriter, r *http.Request) {
 		var cityObj city.City
@@ -148,7 +175,7 @@ func main() {
 		utils.Response(w, r, http.StatusCreated, "Posted!")
 	})
 
-	errServ := http.ListenAndServe(cityAPIAddr + ":" + cityAPIPort, r)
+	errServ := http.ListenAndServe(":" + cityAPIPort, r)
 	if errServ != nil {
 		log.Fatal(errServ)
 	}

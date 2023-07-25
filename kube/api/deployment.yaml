@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - image: ghcr.io/do3-2023/thomas-kube-api:latest
+        name: thomas-kube-backend
+        ports:
+        - containerPort: 2022
+        env:
+        - name: CITY_API_ADDR
+          value: "0.0.0.0"
+        - name: CITY_API_PORT
+          value: "2022"
+        - name: CITY_API_DB_URL
+          value: "postgres://postgres:fischer1956@database.db.svc.cluster.local/?sslmode=disable"
+        - name: CITY_API_DB_USER
+          value: "postgres"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 2022
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 2022
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      initContainers:
+      - name: init-pg
+        image: busybox
+        command: ['sh', '-c', 'until nc -zv database.db.svc.cluster.local 5432; do echo waiting for PostgreSQL; sleep 2; done;']
+status: {}
+
+

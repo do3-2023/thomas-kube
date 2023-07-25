@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webapp
+  name: webapp
+  namespace: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webapp
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - image: ghcr.io/do3-2023/thomas-kube-web:latest
+        name: thomas-kube-frontend
+        resources: {}
+        # livenessProbe:
+        #   httpGet:
+        #     path: http://backend-service.backend.svc.cluster.local/healthz
+        #     port: 80
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 5
+        #   failureThreshold: 2
+        # readinessProbe:
+        #   httpGet:
+        #     path: http://backend-service.backend.svc.cluster.local/healthz
+        #     port: 80
+        #   initialDelaySeconds: 10
+        #   periodSeconds: 5
+        #   failureThreshold: 2
+      initContainers:
+      - name: init-api
+        image: busybox
+        command: ['sh', '-c', 'until nc -zv backend-service.backend.svc.cluster.local 80; do echo waiting for API; sleep 2; done;']
+status: {}
