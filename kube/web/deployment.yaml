@@ -19,23 +19,28 @@ spec:
       containers:
       - image: ghcr.io/do3-2023/thomas-kube-web:latest
         name: thomas-kube-frontend
-        resources: {}
-        # livenessProbe:
-        #   httpGet:
-        #     path: http://backend-service.backend.svc.cluster.local/healthz
-        #     port: 80
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 5
-        #   failureThreshold: 2
-        # readinessProbe:
-        #   httpGet:
-        #     path: http://backend-service.backend.svc.cluster.local/healthz
-        #     port: 80
-        #   initialDelaySeconds: 10
-        #   periodSeconds: 5
-        #   failureThreshold: 2
+        resources:
+          limits: {}
+          requests:
+            memory: 500Mi
+            cpu: 250m
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 3
+          failureThreshold: 5
+
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 3
+          failureThreshold: 2
       initContainers:
       - name: init-api
         image: busybox
-        command: ['sh', '-c', 'until nc -zv backend-service.backend.svc.cluster.local 80; do echo waiting for API; sleep 2; done;']
+        command: ['sh', '-c', 'until nc -zv backend-service.backend.svc.cluster.local 2022; do echo waiting for API; sleep 1; done;']
 status: {}
