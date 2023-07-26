@@ -34,6 +34,12 @@ kubectl create ns db
 kubectl apply -Rf ./kube
 ```
 
+this might take a while, you can check the status of the pods using:
+
+```
+kubectl get pods -A
+```
+
 **Retrieve the ip and nodeport of the frontend**
 
 ```
