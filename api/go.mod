@@ -1,4 +1,4 @@
-module github.com/thomas-mauran/city_api
+module github.com/do3-2023/thomas-kube
 
 go 1.19
 

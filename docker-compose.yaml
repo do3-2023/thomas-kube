@@ -5,8 +5,12 @@ services:
     environment:
       POSTGRES_PASSWORD: fischer1956
       POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
     volumes:
       - ./db/:/docker-entrypoint-initdb.d/
+    networks:
+      - default
 
   api:
     build:
@@ -14,10 +18,10 @@ services:
       target: prod
     restart: always
     environment:
-      CITY_API_ADDR: 0.0.0.0
-      CITY_API_PORT: 2022
-      CITY_API_DB_URL: postgres://postgres:fischer1956@db:5432/?sslmode=disable
-      CITY_API_DB_USER: postgres
+      API_ADDR: 0.0.0.0
+      API_PORT: 2022
+      API_DB_URL: postgres://postgres:fischer1956@db:5432/?sslmode=disable
+      API_DB_USER: postgres
     ports:
       - "2022:2022"
     depends_on:

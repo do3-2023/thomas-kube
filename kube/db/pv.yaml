@@ -8,12 +8,12 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 10Gi
+    storage: 2Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
   hostPath:
-    path: "/mnt/data/tp-kube/database"
+    path: "/mnt"
 
 ---
 
@@ -24,9 +24,10 @@ metadata:
   namespace: db
 
 spec:
+  storageClassName: manual
   resources:
     requests:
-      storage: 10Gi
+      storage: 2Gi
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce

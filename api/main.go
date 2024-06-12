@@ -7,15 +7,16 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/do3-2023/thomas-kube/dbHelper"
+	person "github.com/do3-2023/thomas-kube/struct"
+	"github.com/do3-2023/thomas-kube/utils"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/lib/pq"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/thomas-mauran/city_api/dbHelper"
-	city "github.com/thomas-mauran/city_api/struct"
-	"github.com/thomas-mauran/city_api/utils"
 )
 
 var requestCount = prometheus.NewCounterVec(
@@ -34,24 +35,53 @@ func incrementRequestCount(next http.Handler) http.Handler {
 }
 
 func main() {
-	cityAPIAddr := os.Getenv("CITY_API_ADDR")
-	cityAPIPort := os.Getenv("CITY_API_PORT")
-	cityAPIDBUrl := os.Getenv("CITY_API_DB_URL")
-	cityAPIDbUser := os.Getenv("CITY_API_DB_USER")
+	APIAddr := os.Getenv("API_ADDR")
+	APIPort := os.Getenv("API_PORT")
+	APIDBUrl := os.Getenv("API_DB_URL")
+	APIDbUser := os.Getenv("API_DB_USER")
 
-	fmt.Println("cityAPIAddr:", cityAPIAddr)
-	fmt.Println("cityAPIPort:", cityAPIPort)
+	fmt.Println("APIAddr:", APIAddr)
+	fmt.Println("APIPort:", APIPort)
+	fmt.Println("APIDbUrl:", APIDBUrl)
+	fmt.Println("APIDbUser:", APIDbUser)
 
-	if cityAPIDBUrl == "" || cityAPIDbUser == ""  {
+	if APIDBUrl == "" || APIDbUser == ""  {
 		log.Fatal("Missing some environment variables")
 	}
 
 	// Connect to the database
-	db, err := sql.Open("postgres", cityAPIDBUrl)
-	if err != nil {
-		println("Error opening the database connection:", err)
-		panic(err)
+	const maxRetries = 5
+	const retryDelay = 5 * time.Second // Adjust the delay time as needed
+	
+	var db *sql.DB
+	
+	for retries := 0; retries < maxRetries; retries++ {
+		var err error
+		db, err = sql.Open("postgres", APIDBUrl)
+		if err != nil {
+			log.Printf("Error opening the database connection (attempt %d/%d): %v\n", retries+1, maxRetries, err)
+			time.Sleep(retryDelay)
+			continue
+		}
+	
+		// Check if the database is accessible by pinging it
+		err = db.Ping()
+		if err != nil {
+			log.Printf("Error connecting to the database (attempt %d/%d): %v\n", retries+1, maxRetries, err)
+			db.Close()
+			time.Sleep(retryDelay)
+			continue
+		}
+	
+		// Connection successful, break out of the loop
+		log.Println("Database connection established successfully.")
+		break
 	}
+	
+	if db == nil {
+		log.Fatal("Unable to establish database connection after maximum retries.")
+	}
+
 	defer db.Close()
 
 	r := chi.NewRouter()
@@ -60,7 +90,7 @@ func main() {
 	// Prometheus metrics
 	prometheus.MustRegister(requestCount)
 
-	println("Starting the server on :", cityAPIAddr+":"+cityAPIPort)
+	println("Starting the server on :", APIAddr+":"+APIPort)
 
 	// Populate the db
 	dbHelper.PopulateDb(db)
@@ -84,9 +114,9 @@ func main() {
 		utils.Response(w, r, 200, "Everything is good!")
 	})
 
-	// City GET
-	r.Get("/city", func(w http.ResponseWriter, r *http.Request) {
-		sqlStatement := `SELECT * FROM city`
+	// Person GET
+	r.Get("/person", func(w http.ResponseWriter, r *http.Request) {
+		sqlStatement := `SELECT * FROM person`
 		rows, err := db.Query(sqlStatement)
 		if err != nil {
 			log.Println("Error querying the database:", err)
@@ -95,16 +125,16 @@ func main() {
 		}
 		defer rows.Close()
 
-		var listOfCities []city.City
+		var listOfPersons []person.Person
 
 		for rows.Next() {
-			var city city.City
-			if err := rows.Scan(&city.ID, &city.DepartmentCode, &city.InseeCode, &city.ZipCode, &city.Name, &city.Lat, &city.Lon); err != nil {
+			var person person.Person
+			if err := rows.Scan(&person.ID, &person.LastName, &person.PhoneNumber, &person.Location); err != nil {
 				log.Println("Error scanning row:", err)
 				utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
 				return
 			}
-			listOfCities = append(listOfCities, city)
+			listOfPersons = append(listOfPersons, person)
 		}
 		if err := rows.Err(); err != nil {
 			log.Println("Error iterating rows:", err)
@@ -112,7 +142,7 @@ func main() {
 			return
 		}
 
-		jsonData, err := json.Marshal(listOfCities)
+		jsonData, err := json.Marshal(listOfPersons)
 		if err != nil {
 			log.Println("Error marshaling JSON:", err)
 			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
@@ -127,19 +157,19 @@ func main() {
 		}
 	})
 
-	//Random city
-	r.Get("/city/random", func(w http.ResponseWriter, r *http.Request) {
-		sqlStatement := `SELECT * FROM city ORDER BY RANDOM() LIMIT 1`
+	//Random person
+	r.Get("/person/random", func(w http.ResponseWriter, r *http.Request) {
+		sqlStatement := `SELECT * FROM person ORDER BY RANDOM() LIMIT 1`
 		row := db.QueryRow(sqlStatement)
 
-		var city city.City
-		if err := row.Scan(&city.ID, &city.DepartmentCode, &city.InseeCode, &city.ZipCode, &city.Name, &city.Lat, &city.Lon); err != nil {
+		var person person.Person
+		if err := row.Scan(&person.ID, &person.LastName, &person.PhoneNumber, &person.Location); err != nil {
 			log.Println("Error scanning row:", err)
 			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
 			return
 		}
 
-		jsonData, err := json.Marshal(city)
+		jsonData, err := json.Marshal(person)
 		if err != nil {
 			log.Println("Error marshaling JSON:", err)
 			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
@@ -154,18 +184,18 @@ func main() {
 		}
 	})
 
-	// City POST
-	r.Post("/city", func(w http.ResponseWriter, r *http.Request) {
-		var cityObj city.City
-		err := json.NewDecoder(r.Body).Decode(&cityObj)
+	// Person POST
+	r.Post("/person", func(w http.ResponseWriter, r *http.Request) {
+		var Obj person.Person
+		err := json.NewDecoder(r.Body).Decode(&Obj)
 		if err != nil {
 			log.Println("Error decoding JSON:", err)
 			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
 			return
 		}
 
-		sqlStatement := `INSERT INTO city (department_code, insee_code, zip_code, name, lat, lon) VALUES ($1, $2, $3, $4, $5, $6)`
-		_, errQuery := db.Exec(sqlStatement, cityObj.DepartmentCode, cityObj.InseeCode, cityObj.ZipCode, cityObj.Name, cityObj.Lat, cityObj.Lon)
+		sqlStatement := `INSERT INTO person (last_name, phone_number, location) VALUES ($1, $2, $3)`
+		_, errQuery := db.Exec(sqlStatement, Obj.LastName, Obj.PhoneNumber, Obj.Location)
 		if errQuery != nil {
 			log.Println("Error executing SQL query:", errQuery)
 			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
@@ -175,7 +205,7 @@ func main() {
 		utils.Response(w, r, http.StatusCreated, "Posted!")
 	})
 
-	errServ := http.ListenAndServe(":" + cityAPIPort, r)
+	errServ := http.ListenAndServe(":" + APIPort, r)
 	if errServ != nil {
 		log.Fatal(errServ)
 	}

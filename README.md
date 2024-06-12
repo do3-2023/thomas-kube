@@ -1,6 +1,5 @@
 <div align="center">
 <h1>TP Kubernetes</h1>
-<img src="https://i.pinimg.com/originals/90/ff/6f/90ff6fe1fa93ee8abb993fbcdf80b7a8.gif" alt="cobol mystery number game" style="width: 500px"/>
 </div>
 
 ## Description
