@@ -8,7 +8,7 @@ on:
 jobs:
 
   build-and-push-images:
-    name: Build and publish image city-api to ghcr.io
+    name: Build and publish image api to ghcr.io
     runs-on: ubuntu-latest
     permissions:
       packages: write
