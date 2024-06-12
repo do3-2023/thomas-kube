@@ -10,8 +10,6 @@ jobs:
   build-and-push-images:
     name: Build and publish image city-api to ghcr.io
     runs-on: ubuntu-latest
-    needs:
-    - lint-city
     permissions:
       packages: write
     outputs:
