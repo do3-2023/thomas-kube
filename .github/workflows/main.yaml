@@ -23,7 +23,7 @@ jobs:
       - name: Run linter
         run: |
           go get github.com/golangci/golangci-lint/cmd/golangci-lint
-          golangci-lint run ./...
+          golangci-lint run
         working-directory: ./api
 
   checks-web:
@@ -38,11 +38,11 @@ jobs:
 
       - name: Install modules
         run: npm install
-        working-directory: ./web
+        working-directory: ./frontend
 
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./web
+        working-directory: ./frontend
 
   build_and_push:
     runs-on: ubuntu-latest
@@ -54,8 +54,8 @@ jobs:
         include:
           - context: ./api
             image: ghcr.io/${{ github.repository }}/api
-          - context: ./web
-            image: ghcr.io/${{ github.repository }}/web
+          - context: ./frontend
+            image: ghcr.io/${{ github.repository }}/frontend
     env:
       REGISTRY: ghcr.io
       IMAGE_NAME: ${{ github.repository }}
