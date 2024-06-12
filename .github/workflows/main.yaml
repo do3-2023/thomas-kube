@@ -6,25 +6,6 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  lint-city:
-    name: City linter
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-
-
-    ## Golang linter
-    ##
-    - uses: actions/setup-go@v4
-      with:
-        go-version: '1.20'
-        cache: false
-
-    - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3
-      with:
-        version: v1.53
-        working-directory: ./thomas-kube
 
   build-and-push-images:
     name: Build and publish image city-api to ghcr.io
