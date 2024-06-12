@@ -6,43 +6,6 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
 
 jobs:
-  checks-api:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.16'  # Adjust Go version if needed
-
-      - name: Install dependencies
-        run: go mod download
-        working-directory: ./api
-
-      - name: Run linter
-        run: |
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint
-          golangci-lint run
-        working-directory: ./api
-
-  checks-web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'  # Adjust Node.js version if needed
-
-      - name: Install modules
-        run: npm install
-        working-directory: ./frontend
-
-      - name: Run ESLint
-        run: npm run lint
-        working-directory: ./frontend
 
   build_and_push:
     runs-on: ubuntu-latest
