@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,6 +10,7 @@ import (
 	"time"
 
 	"github.com/do3-2023/thomas-kube/dbHelper"
+	person "github.com/do3-2023/thomas-kube/struct"
 	"github.com/do3-2023/thomas-kube/utils"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -113,95 +115,95 @@ func main() {
 	})
 
 	// Person GET
-	// r.Get("/person", func(w http.ResponseWriter, r *http.Request) {
-	// 	sqlStatement := `SELECT * FROM person`
-	// 	rows, err := db.Query(sqlStatement)
-	// 	if err != nil {
-	// 		log.Println("Error querying the database:", err)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
-	// 	defer rows.Close()
+	r.Get("/person", func(w http.ResponseWriter, r *http.Request) {
+		sqlStatement := `SELECT * FROM person`
+		rows, err := db.Query(sqlStatement)
+		if err != nil {
+			log.Println("Error querying the database:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
+		defer rows.Close()
 
-	// 	var listOfPersons []person.Person
+		var listOfPersons []person.Person
 
-	// 	for rows.Next() {
-	// 		var person person.Person
-	// 		if err := rows.Scan(&person.ID, &person.LastName, &person.PhoneNumber, &person.Location); err != nil {
-	// 			log.Println("Error scanning row:", err)
-	// 			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 			return
-	// 		}
-	// 		listOfPersons = append(listOfPersons, person)
-	// 	}
-	// 	if err := rows.Err(); err != nil {
-	// 		log.Println("Error iterating rows:", err)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
+		for rows.Next() {
+			var person person.Person
+			if err := rows.Scan(&person.ID, &person.LastName, &person.PhoneNumber, &person.Location); err != nil {
+				log.Println("Error scanning row:", err)
+				utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+				return
+			}
+			listOfPersons = append(listOfPersons, person)
+		}
+		if err := rows.Err(); err != nil {
+			log.Println("Error iterating rows:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	// 	jsonData, err := json.Marshal(listOfPersons)
-	// 	if err != nil {
-	// 		log.Println("Error marshaling JSON:", err)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
+		jsonData, err := json.Marshal(listOfPersons)
+		if err != nil {
+			log.Println("Error marshaling JSON:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	// 	w.Header().Set("Content-Type", "application/json")
-	// 	w.WriteHeader(http.StatusOK)
-	// 	if _, err := w.Write(jsonData); err != nil {
-	// 		log.Println("Error writing response:", err)
-	// 		// Handle the error. You can choose to log the error, send an appropriate response, or take any other action.
-	// 	}
-	// })
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write(jsonData); err != nil {
+			log.Println("Error writing response:", err)
+			// Handle the error. You can choose to log the error, send an appropriate response, or take any other action.
+		}
+	})
 
 	//Random person
-	// r.Get("/person/random", func(w http.ResponseWriter, r *http.Request) {
-	// 	sqlStatement := `SELECT * FROM person ORDER BY RANDOM() LIMIT 1`
-	// 	row := db.QueryRow(sqlStatement)
+	r.Get("/person/random", func(w http.ResponseWriter, r *http.Request) {
+		sqlStatement := `SELECT * FROM person ORDER BY RANDOM() LIMIT 1`
+		row := db.QueryRow(sqlStatement)
 
-	// 	var person person.Person
-	// 	if err := row.Scan(&person.ID, &person.LastName, &person.PhoneNumber, &person.Location); err != nil {
-	// 		log.Println("Error scanning row:", err)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
+		var person person.Person
+		if err := row.Scan(&person.ID, &person.LastName, &person.PhoneNumber, &person.Location); err != nil {
+			log.Println("Error scanning row:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	// 	jsonData, err := json.Marshal(person)
-	// 	if err != nil {
-	// 		log.Println("Error marshaling JSON:", err)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
+		jsonData, err := json.Marshal(person)
+		if err != nil {
+			log.Println("Error marshaling JSON:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	// 	w.Header().Set("Content-Type", "application/json")
-	// 	w.WriteHeader(http.StatusOK)
-	// 	if _, err := w.Write(jsonData); err != nil {
-	// 		log.Println("Error writing response:", err)
-	// 		// Handle the error. You can choose to log the error, send an appropriate response, or take any other action.
-	// 	}
-	// })
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		if _, err := w.Write(jsonData); err != nil {
+			log.Println("Error writing response:", err)
+			// Handle the error. You can choose to log the error, send an appropriate response, or take any other action.
+		}
+	})
 
 	// Person POST
-	// r.Post("/person", func(w http.ResponseWriter, r *http.Request) {
-	// 	var Obj person.Person
-	// 	err := json.NewDecoder(r.Body).Decode(&Obj)
-	// 	if err != nil {
-	// 		log.Println("Error decoding JSON:", err)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
+	r.Post("/person", func(w http.ResponseWriter, r *http.Request) {
+		var Obj person.Person
+		err := json.NewDecoder(r.Body).Decode(&Obj)
+		if err != nil {
+			log.Println("Error decoding JSON:", err)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	// 	sqlStatement := `INSERT INTO person (last_name, phone_number, location) VALUES ($1, $2, $3)`
-	// 	_, errQuery := db.Exec(sqlStatement, Obj.LastName, Obj.PhoneNumber, Obj.Location)
-	// 	if errQuery != nil {
-	// 		log.Println("Error executing SQL query:", errQuery)
-	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-	// 		return
-	// 	}
+		sqlStatement := `INSERT INTO person (last_name, phone_number, location) VALUES ($1, $2, $3)`
+		_, errQuery := db.Exec(sqlStatement, Obj.LastName, Obj.PhoneNumber, Obj.Location)
+		if errQuery != nil {
+			log.Println("Error executing SQL query:", errQuery)
+			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	// 	utils.Response(w, r, http.StatusCreated, "Posted!")
-	// })
+		utils.Response(w, r, http.StatusCreated, "Posted!")
+	})
 
 	errServ := http.ListenAndServe(":" + APIPort, r)
 	if errServ != nil {
