@@ -93,7 +93,7 @@ func main() {
 	println("Starting the server on :", APIAddr+":"+APIPort)
 
 	// Populate the db
-	dbHelper.PopulateDb(db)
+    dbHelper.MigrateDb(db)
 	println("test")
 
 	r.Route("/metrics", func(r chi.Router) {

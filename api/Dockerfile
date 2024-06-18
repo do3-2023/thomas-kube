@@ -1,6 +1,6 @@
 ## Build the Go API
 ##
-FROM golang:1.19-alpine AS builder
+FROM golang:1.20-alpine AS builder
 
 WORKDIR /app
 
@@ -10,12 +10,12 @@ RUN go mod download
 
 COPY . .
 
-RUN CGO_ENABLED=0 GOOS=linux go build -o city
+RUN CGO_ENABLED=0 GOOS=linux go build -o api
 
 
 ## Dev image
 ##
-FROM  golang:1.19-alpine AS dev
+FROM  golang:1.20-alpine AS dev
 
 WORKDIR /app
 
@@ -37,6 +37,7 @@ USER myuser
 
 WORKDIR /
 
-COPY --from=builder /app/city .
+COPY --from=builder /app/api .
+COPY --from=builder /app/migrations ./migrations
 
-CMD [ "/city" ]  
+CMD [ "/api" ]  

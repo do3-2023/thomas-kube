@@ -3,33 +3,30 @@ package dbHelper
 import (
 	"database/sql"
 	"log"
+
+	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
+	_ "github.com/lib/pq"
 )
 
-func PopulateDb(db *sql.DB){
+func MigrateDb(db *sql.DB) {
+    driver, err := postgres.WithInstance(db, &postgres.Config{})
+    if (err != nil) {
+        log.Fatalf("Could not create DB driver: %v", err)
+    }
 
-	// create the person table
-	createTable := `CREATE TABLE IF NOT EXISTS person (
-		id SERIAL NOT NULL PRIMARY KEY,
-		last_name TEXT UNIQUE NOT NULL,
-		phone_number TEXT NOT NULL,
-		location TEXT NOT NULL
-	);`
+    m, err := migrate.NewWithDatabaseInstance(
+        "file:///migrations", 
+        "postgres", driver)
+    if (err != nil) {
+        log.Fatalf("Could not create migrate instance: %v", err)
+    }
 
-	_, err := db.Exec(createTable)
-	if err != nil {
-		log.Println("Error creating table:", err)
-	}
+    err = m.Up()
+    if (err != nil && err != migrate.ErrNoChange) {
+        log.Fatalf("Could not run migrations: %v", err)
+    }
 
-	sqlStatementInsert := `INSERT INTO person (last_name, phone_number, location)
-	VALUES ('John', '0702030405', 'Marseille'),
-       ('Doe', '0603040506', 'Montpellier');
-	`
-	_, errQuery := db.Exec(sqlStatementInsert)
-	if errQuery != nil {
-		log.Println("Error executing SQL query:", errQuery)
-		return
-	}
-
-	println("Table setup done")
-
+    log.Println("Database migrated successfully")
 }
