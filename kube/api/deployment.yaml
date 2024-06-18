@@ -17,7 +17,7 @@ spec:
         app: backend
     spec:
       containers:
-      - image: ghcr.io/do3-2023/thomas-kube/api:v1.0.0
+      - image: ghcr.io/do3-2023/thomas-kube/api:v2.0.0
         name: thomas-kube-backend
         ports:
         - containerPort: 2022
