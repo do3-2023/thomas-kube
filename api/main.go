@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -10,7 +9,6 @@ import (
 	"time"
 
 	"github.com/do3-2023/thomas-kube/dbHelper"
-	person "github.com/do3-2023/thomas-kube/struct"
 	"github.com/do3-2023/thomas-kube/utils"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -185,25 +183,25 @@ func main() {
 	// })
 
 	// Person POST
-	r.Post("/person", func(w http.ResponseWriter, r *http.Request) {
-		var Obj person.Person
-		err := json.NewDecoder(r.Body).Decode(&Obj)
-		if err != nil {
-			log.Println("Error decoding JSON:", err)
-			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-			return
-		}
+	// r.Post("/person", func(w http.ResponseWriter, r *http.Request) {
+	// 	var Obj person.Person
+	// 	err := json.NewDecoder(r.Body).Decode(&Obj)
+	// 	if err != nil {
+	// 		log.Println("Error decoding JSON:", err)
+	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+	// 		return
+	// 	}
 
-		sqlStatement := `INSERT INTO person (last_name, phone_number, location) VALUES ($1, $2, $3)`
-		_, errQuery := db.Exec(sqlStatement, Obj.LastName, Obj.PhoneNumber, Obj.Location)
-		if errQuery != nil {
-			log.Println("Error executing SQL query:", errQuery)
-			utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
-			return
-		}
+	// 	sqlStatement := `INSERT INTO person (last_name, phone_number, location) VALUES ($1, $2, $3)`
+	// 	_, errQuery := db.Exec(sqlStatement, Obj.LastName, Obj.PhoneNumber, Obj.Location)
+	// 	if errQuery != nil {
+	// 		log.Println("Error executing SQL query:", errQuery)
+	// 		utils.Response(w, r, http.StatusInternalServerError, "Internal Server Error")
+	// 		return
+	// 	}
 
-		utils.Response(w, r, http.StatusCreated, "Posted!")
-	})
+	// 	utils.Response(w, r, http.StatusCreated, "Posted!")
+	// })
 
 	errServ := http.ListenAndServe(":" + APIPort, r)
 	if errServ != nil {
