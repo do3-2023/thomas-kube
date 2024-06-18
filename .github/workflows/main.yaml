@@ -11,42 +11,45 @@ env:
   DOCKERFILE_CONTEXT: "api"
 
 jobs:
-
   build-and-push-images:
     name: Build and publish image api to ghcr.io
     runs-on: ubuntu-latest
     permissions:
       packages: write
-    outputs:
-      version: ${{ steps.meta.outputs.version }}
     steps:
-    - uses: actions/checkout@v3
-    ## Authenticate to registry repo github
-    ##
-    - name: Log in to the Container registry
-      uses: docker/login-action@v2
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v3
 
-    ## Build and push Docker image
-    ##
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+      ## Extract the version from the Git tag
+      - name: Extract version from Git tag
+        id: extract_version
+        run: echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ env.REGISTRY }}/${{ github.repository }}
-        tags: type=sha
+      ## Authenticate to registry repo github
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: ${{ env.DOCKERFILE_CONTEXT }}
-        target: ${{ env.DOCKERFILE_TARGET }}
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
+      ## Build and push Docker image
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+          tags: type=sha
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ${{ env.DOCKERFILE_CONTEXT }}
+          target: ${{ env.DOCKERFILE_TARGET }}
+          push: true
+          tags: |
+            ${{ steps.meta.outputs.tags }}
+            ${{ env.REGISTRY }}/${{ github.repository }}:v${{ env.version }}
+          labels: ${{ steps.meta.outputs.labels }}
