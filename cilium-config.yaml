@@ -1,0 +1,43 @@
+envoy:
+  enabled: true
+encryption:
+  enabled: false
+  type: wiregard
+hostFirewall:
+  enabled: true
+l2announcements:
+  enabled: true
+gatewayAPI:
+  enabled: true
+kubeProxyReplacement: strict
+cluster:
+  name: cluster-1
+  id: 10
+prometheus:
+  enabled: true
+  serviceMonitor:
+    enabled: false
+dashboards:
+  enabled: true
+hubble:
+  metrics:
+    enabled:
+    - dns:query;ignoreAAAA
+    - drop
+    - tcp
+    - flow
+    - icmp
+    - http
+  relay:
+    enabled: true
+    prometheus:
+      enabled: true
+  ui:
+    enabled: true
+    baseUrl: "/"
+operator:
+  prometheus:
+    enabled: true
+  dashboards:
+    enabled: true
+

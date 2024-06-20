@@ -1,0 +1,21 @@
+## Build the Go API
+##
+FROM tinygo/tinygo:latest AS build
+
+WORKDIR /app
+
+COPY go.mod go.sum .env ./ 
+
+RUN go mod download
+
+COPY . .
+
+RUN tinygo build -o main.wasm -target wasm ./main.go
+
+## Production image
+##
+FROM wasmedge/slim-runtime:0.13.5
+
+COPY --from=build /app/main.wasm /simple-app.wasm
+
+ENTRYPOINT [ "wasmedge", "--dir", ".:/", "/simple-app.wasm" ]

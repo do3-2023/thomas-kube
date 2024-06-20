@@ -2,31 +2,20 @@ package dbHelper
 
 import (
 	"database/sql"
-	"log"
-
-	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-	_ "github.com/lib/pq"
+	"fmt"
 )
 
 func MigrateDb(db *sql.DB) {
-    driver, err := postgres.WithInstance(db, &postgres.Config{})
-    if (err != nil) {
-        log.Fatalf("Could not create DB driver: %v", err)
-    }
+    query := `
+		CREATE TABLE IF NOT EXISTS persons (
+			id SERIAL PRIMARY KEY,
+			phone_number VARCHAR(100) NOT NULL,
+			last_name VARCHAR(100) NOT NULL,
+            location VARCHAR(100) NOT NULL
+		)`
+	_, err := db.Query(query)
 
-    m, err := migrate.NewWithDatabaseInstance(
-        "file:///migrations", 
-        "postgres", driver)
-    if (err != nil) {
-        log.Fatalf("Could not create migrate instance: %v", err)
-    }
-
-    err = m.Up()
-    if (err != nil && err != migrate.ErrNoChange) {
-        log.Fatalf("Could not run migrations: %v", err)
-    }
-
-    log.Println("Database migrated successfully")
+    if err != nil {
+		fmt.Println("Failed to create table:", err.Error())
+	}
 }

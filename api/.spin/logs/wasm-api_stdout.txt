@@ -1,0 +1,278 @@
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+connection failed: address host=http://localhost user=postgres password=fischer1956 dbname=postgres port=5432 sslmode=disable is not permitted
+Connected to DB
+Failed to create table: query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42601), message: "syntax error at or near \"location\"", detail: None, hint: None, position: Some(Original(153)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("scan.l"), line: Some(1188), routine: Some("scanner_yyerror") }) }
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+Failed to create table: query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42601), message: "syntax error at or near \"location\"", detail: None, hint: None, position: Some(Original(153)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("scan.l"), line: Some(1188), routine: Some("scanner_yyerror") }) }
+GET REQUEST ON /persons
+{0 1 0 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+GET REQUEST ON /persons
+{0 3 2 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+GET REQUEST ON /persons
+{0 3 2 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+Connected to DB
+GET REQUEST ON /persons
+{0 3 2 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+GET REQUEST ON /persons
+{0 3 2 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+GET REQUEST ON /persons
+{0 3 2 1 0 0s 0 0 0}
+query failed: Error { kind: Db, cause: Some(DbError { severity: "ERROR", parsed_severity: Some(Error), code: SqlState(E42P01), message: "relation \"person\" does not exist", detail: None, hint: None, position: Some(Original(15)), where_: None, schema: None, table: None, column: None, datatype: None, constraint: None, file: Some("parse_relation.c"), line: Some(1392), routine: Some("parserOpenTable") }) }
+Connected to DB
+GET REQUEST ON /persons
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db &{{{} {} 0} 0x41720 {{} {} 0} {0 {<nil>}} [0x52cf0] map[] 0 3 0x41830 false map[0x51b40:map[0x51b40:true] 0x520f0:map[0x520f0:true] 0x52cf0:map[0x52cf0:true]] map[] 0 0 0 0 <nil> 0 0 0 0 0x41730}
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x1f658
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52c60
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52d00
+panic: runtime error: nil pointer dereference
+Connected to DB
+Connected to DB
+GET REQUEST ON /persons
+db 0x52cb0
+HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEee
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52d30
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52cb0
+HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEee
+Persons: [0/0]nil
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52cb0
+HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEee
+Persons: 0x0005ba00
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52cd0
+HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEee
+Persons: 0x0005b6e0
+panic: runtime error: nil pointer dereference
+Connected to DB
+GET REQUEST ON /persons
+db 0x52d50
+Persons: 0x0005be90
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+Error scanning row: sql: expected 3 destination arguments in Scan, not 2
+HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEee
+Connected to DB
+GET REQUEST ON /persons
+db 0x52c90
+Persons: 0x0005bf60
+Connected to DB
+&{POST http://localhost:3000/persons HTTP/1.1 1 1 map[Accept:[*/*] Content-Length:[54] Content-Type:[application/json] Host:[localhost:3000] Spin-Base-Path:[/] Spin-Client-Addr:[127.0.0.1:53574] Spin-Component-Route:[] Spin-Full-Url:[http://localhost:3000/persons] Spin-Matched-Route:[/...] Spin-Path-Info:[/persons] Spin-Raw-Component-Route:[/...] User-Agent:[insomnia/9.2.0]] {0x415e0} 0x41880 54 [] false localhost:3000 map[] map[] <nil> map[] 127.0.0.1:53574 /persons <nil> <nil> <nil> {{}} <nil>}
+0x52f90
+HERE
+Connected to DB
+{0x415e0}
+0x52f90
+HERE
+Connected to DB
+{0x415e0}
+0x52f90
+HERE
+Connected to DB
+{0x3fed0}
+0x3ff70
+HERE
+Connected to DB
+&{POST http://localhost:3000/persons HTTP/1.1 1 1 map[Accept:[*/*] Content-Length:[54] Content-Type:[application/json] Host:[localhost:3000] Spin-Base-Path:[/] Spin-Client-Addr:[127.0.0.1:45018] Spin-Component-Route:[] Spin-Full-Url:[http://localhost:3000/persons] Spin-Matched-Route:[/...] Spin-Path-Info:[/persons] Spin-Raw-Component-Route:[/...] User-Agent:[insomnia/9.2.0]] {0x416a0} 0x41940 54 [] false localhost:3000 map[] map[] <nil> map[] 127.0.0.1:45018 /persons <nil> <nil> <nil> {{}} <nil>}
+[]
+0x41740
+HERE
+Connected to DB
+[]
+&[]
+HERE
+Connected to DB
+[]
+&[]
+HERE
+Connected to DB
+[]
+&[]
+HERE
+Connected to DB
+HERE {0x3fe90}
+Connected to DB
+HERE [123 10 9 34 108 97 115 116 95 110 97 109 101 34 58 32 34 109 101 101 34 44 10 9 34 112 104 111 110 101 95 110 117 109 98 101 114 34 58 32 34 48 50 51 49 56 50 50 56 50 49 34 10 125]
+Connected to DB
+HERE {
+	"last_name": "mee",
+	"phone_number": "0231822821"
+}
+Connected to DB
+Connected to DB
+GET REQUEST ON /persons
+db 0x51e60
+Persons: 0x00062db0
