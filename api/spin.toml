@@ -15,10 +15,10 @@ db_url = { required = true }
 
 [component.wasm-api]
 source = "main.wasm"
-allowed_outbound_hosts = ["*://{{ db_url }}:5432"]
+allowed_outbound_hosts = ["*://0.0.0.0:5432"]
 
 [component.wasm-api.variables]
-db_url = "{{ db_url }}"
+db_url = "0.0.0.0"
 db_username = "postgres"
 db_password = "fischer1956"
 db_name = "postgres"

@@ -1,0 +1,8 @@
+apiVersion: core.spinoperator.dev/v1alpha1
+kind: SpinApp
+metadata:
+  name: wasm-api
+spec:
+  image: "ghcr.io/do3-2023/thomas-kube-wasm:latest"
+  replicas: 1
+  executor: "containerd-shim-spin"
